@@ -24,7 +24,7 @@ npm run dev
 
 ### Configuración
 
-Los sudokus resueltos se agregan en el archivo `src/assets/samples.json`. A las pistas se les agregan un cero a la izquierda y al resto de números, los cuales permancerán ocultos, un cero a la derecha para mejorar su legibilidad. Por ejemplo:
+Los sudokus resueltos se agregan en el archivo `src/assets/samples.json`. A las pistas se les agrega un cero a la izquierda y al resto de números, los cuales permancerán ocultos, un cero a la derecha para mejorar su legibilidad. Por ejemplo:
 
 ```
 [
