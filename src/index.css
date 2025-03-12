@@ -1,0 +1,112 @@
+:root {
+  --color-black: #111;
+  --color-white: #fff;
+  --color-yellow: #eeff91;
+  --color-green: #96ff96;
+  --color-gray: #ccc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  min-height: 100vh;
+  background-color: var(--color-black);
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body, #root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sudoku {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sudoku .grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  border: 0.2rem solid var(--color-black);
+}
+
+.sudoku .cell input {
+  display: inline-block;
+  width: 100%;
+  max-width: 3rem;
+  aspect-ratio: 1/1;
+  background-color: var(--color-white);
+  border: 0.03rem solid var(--color-black);
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 1.1rem;
+  text-align: center;
+  color: var(--color-black);
+  appearance: textfield;
+  caret-color: transparent;
+}
+
+.sudoku .cell input:focus {
+  background-color: var(--color-yellow);
+  outline: none;
+}
+
+.sudoku .cell input:disabled {
+  background-color: var(--color-gray);
+}
+
+.sudoku .cell:nth-child(3n):not(:nth-child(9n)) input {
+  border-right-width: 0.2rem;
+}
+
+.sudoku .cell:nth-child(n+19):nth-child(-n+27) input,
+.sudoku .cell:nth-child(n+46):nth-child(-n+54) input {
+  border-bottom-width: 0.2rem;
+}
+
+.sudoku p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-white);
+}
+
+.sudoku p.solved {
+  color: var(--color-green);
+}
+
+.sudoku button {
+  padding: 0.3rem 0.5rem;
+  background-color: var(--color-gray);
+  border: 0;
+  border-radius: 0.3rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.sudoku button:active {
+  background-color: rgb(from var(--color-gray) r g b / 0.8);
+}
+
+@media print {
+  body {
+    background-color: var(--color-white);
+  }
+
+  .sudoku p,
+  .sudoku button {
+    display: none;
+  }
+}
