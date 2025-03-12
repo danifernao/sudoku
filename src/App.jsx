@@ -1,4 +1,4 @@
-import Sudoku from "./components.jsx/Sudoku";
+import Sudoku from "./components/Sudoku";
 
 function App() {
   return <Sudoku />;
