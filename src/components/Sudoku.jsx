@@ -28,6 +28,7 @@ function Sudoku() {
   /* Estado del juego, este puede ser:
      "withdrew", cuando se desiste de la partida.
      "solved", cuando el sudoku es resuelto por el jugador.
+     "restarted", cuando se borra todo lo ingresado.
      nulo, estado por defecto.
   */
   const [status, setStatus] = useState(null);
@@ -125,7 +126,7 @@ function Sudoku() {
     setInput(matrix);
   };
 
-  const resetSudoku = () => {
+  const onStartBtnClick = () => {
     if (["solved", "withdrew"].includes(status)) {
       createSudoku();
       setStatus(null);
@@ -133,6 +134,11 @@ function Sudoku() {
       setInput(getSudoku());
       setStatus("withdrew");
     }
+  };
+
+  const onRestartBtnClick = () => {
+    resetInput();
+    setStatus(`restarted-${Date.now()}`);
   };
 
   const onLevelChange = (event) => {
@@ -197,8 +203,8 @@ function Sudoku() {
       </SudokuContext>
 
       <div className="buttons">
-        {!isSolved() && <button onClick={resetInput}>Reiniciar</button>}
-        <button onClick={resetSudoku}>
+        {!isSolved() && <button onClick={onRestartBtnClick}>Reiniciar</button>}
+        <button onClick={onStartBtnClick}>
           {isSolved() ? "Jugar de nuevo" : "Resolver"}
         </button>
       </div>
@@ -217,6 +223,10 @@ function Sudoku() {
             repeticiones.
           </li>
           <li>
+            Si la casilla del número ingresado aparece en rojo, es porque no
+            cumple con ninguna de las condiciones mencionadas anteriormente.
+          </li>
+          <li>
             El juego se da por finalizado cuando el mensaje <i>Sin resolver</i>{" "}
             pasa a <i>Sudoku resuelto.</i>
           </li>
@@ -226,7 +236,8 @@ function Sudoku() {
           </li>
           <li>
             El botón <i>Reiniciar</i> borra todo lo que ingresaste y el botón{" "}
-            <i>Resolver</i> te muestra la solución del sudoku.
+            <i>Resolver</i> te muestra la solución del sudoku, dando por
+            finalizado el juego.
           </li>
         </ol>
       </div>
