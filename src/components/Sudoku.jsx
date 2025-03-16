@@ -11,7 +11,7 @@ function Sudoku() {
   // Especifica el nivel del sudoku.
   const [level, setLevel] = useState("easy");
 
-  // Corresponde a as opciones que se mostrarán en el elemento SELECT.
+  // Corresponde a las opciones que se mostrarán en el elemento SELECT.
   const levels = {
     easy: "Fácil",
     hard: "Difícil",
@@ -102,9 +102,9 @@ function Sudoku() {
   };
 
   /*
-    Los números menores que uno (0.N) indican que son pistas, lo cual es
-    irrelevante para mostrar el sudoku resuelto, por lo que convierte dichos
-    valores en números enteros.
+    El sudoku, los números menores que uno (0.N) indican que son pistas,
+    lo cual es irrelevante para mostrar el sudoku resuelto, por lo que
+    convierte dichos valores en números enteros.
   */
   const getSudoku = () => {
     return sudoku.map((row) =>
