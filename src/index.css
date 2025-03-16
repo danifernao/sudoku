@@ -73,7 +73,6 @@ body, #root, .sudoku {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   grid-template-rows: repeat(9, 1fr);
-  border: 0.2rem solid var(--color-black);
 }
 
 .sudoku .cell input {
@@ -97,8 +96,12 @@ body, #root, .sudoku {
   outline: none;
 }
 
-.sudoku .cell input:disabled {
+.sudoku .cell input.clue {
   background-color: var(--color-gray);
+}
+
+.sudoku .cell input:not(.clue):disabled {
+  background-color: var(--color-white);
 }
 
 .sudoku .cell:nth-child(3n):not(:nth-child(9n)) input {
@@ -110,7 +113,15 @@ body, #root, .sudoku {
   border-bottom-width: 0.2rem;
 }
 
-.sudoku button {
+.sudoku .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sudoku .buttons button {
+  flex: 1;
   padding: 0.3rem 0.5rem;
   background-color: var(--color-gray);
   border: 0;
@@ -120,7 +131,7 @@ body, #root, .sudoku {
   font-size: 1rem;
 }
 
-.sudoku button:active {
+.sudoku .buttons button:active {
   background-color: rgb(from var(--color-gray) r g b / 0.8);
 }
 

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 function SudokuGridInput({ row, col, getSibling }) {
   const [_, input, setInput, clues, status] = useContext(SudokuContext);
   const [isVisible, setIsVisible] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const inputRef = useRef();
 
   const changeInput = (key = null) => {
@@ -30,9 +31,7 @@ function SudokuGridInput({ row, col, getSibling }) {
   };
 
   useEffect(() => {
-    if (["solved", "withdrew"].includes(status)) {
-      setIsVisible(true);
-    }
+    setIsDisabled(["solved", "withdrew"].includes(status));
   }, [status]);
 
   useEffect(() => {
@@ -42,10 +41,10 @@ function SudokuGridInput({ row, col, getSibling }) {
   return (
     <input
       type="number"
-      className="number-input"
+      className={`number-input ${isVisible ? "clue" : ""}`}
       data-row={row + 1}
       data-col={col + 1}
-      disabled={isVisible}
+      disabled={isVisible || isDisabled}
       value={input[row][col]}
       onChange={() => null}
       onKeyDown={onKeyDown}
