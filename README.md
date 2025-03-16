@@ -52,7 +52,8 @@ Ten presente que los sudokus deben ser únicos, no deben tener más de una soluc
 
 - El sudoku se llena haciendo clic en alguna casilla de la cudrícula e ingresando un número con el teclado.
 - Cuando ingresas un número, el foco pasa a la siguiente casilla. Para regresar a la casilla anterior o ubicarte en otra distinta, puedes hacer clic en ella o utilizar las teclas de dirección de tu teclado.
-- El sudoku estará resuelto cuando así lo indique el mensaje que aparece en la parte superior del mismo. La aplicación no valida lo ingresado.
+- La casilla se coloreará de rojo en tal caso el número ingresado se repita.
+- El sudoku estará resuelto cuando así lo indique el mensaje que aparece en la parte superior del mismo.
 - El botón _Reiniciar_ borra lo ingresado por el jugador.
 - El botón _Resolver_ borra lo ingresado y soluciona el sudoku.
 
