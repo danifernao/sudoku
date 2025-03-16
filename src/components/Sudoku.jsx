@@ -8,6 +8,15 @@ function Sudoku() {
   // Contendrá la matriz del sudoku resuelto.
   const [sudoku, setSudoku] = useState(null);
 
+  // Especifica el nivel del sudoku.
+  const [level, setLevel] = useState("easy");
+
+  // Las opciones que se mostrarán en el elemento SELECT.
+  const levels = {
+    easy: "Fácil",
+    hard: "Difícil",
+  };
+
   // Contendrá la matriz de las respuestas ingresadas por el jugador.
   const [input, setInput] = useState(null);
 
@@ -38,8 +47,8 @@ function Sudoku() {
 
   // Obtiene una matriz aleatoria de las muestras proporcionadas.
   const getMatrix = () => {
-    const rndIndex = getRandomInt(0, samples.length - 1);
-    return Array.from(samples[rndIndex]);
+    const rndIndex = getRandomInt(0, samples[level].length - 1);
+    return Array.from(samples[level][rndIndex]);
   };
 
   // Rota una matriz hacia la derecha por una sola vez.
@@ -123,6 +132,10 @@ function Sudoku() {
     );
   };
 
+  const onLevelChange = (event) => {
+    setLevel(event.target.value);
+  };
+
   const onBtnClick = () => {
     if (["solved", "withdrew"].includes(status)) {
       createSudoku();
@@ -143,19 +156,55 @@ function Sudoku() {
     }
   }, [input]);
 
+  useEffect(() => {
+    createSudoku();
+    setStatus(null);
+  }, [level]);
+
   return (
     <div className="sudoku">
-      <SudokuContext value={[sudoku, input, setInput, clues, status]}>
+      <h1>Sudoku</h1>
+
+      <div className="top">
         <p className={isSolved() ? "solved" : ""}>
           {isSolved() ? "¡Sudoku resuelto!" : "Sin resolver"}
         </p>
+        <select onChange={onLevelChange}>
+          {Object.keys(levels).map((key, i) => (
+            <option value={key} key={i}>
+              {levels[key]}
+            </option>
+          ))}
+        </select>
+      </div>
 
-        <SudokuGrid grid={sudoku} />
-
-        <button onClick={onBtnClick}>
-          {isSolved() ? "Jugar de nuevo" : "Resolver"}
-        </button>
+      <SudokuContext value={[sudoku, input, setInput, clues, status]}>
+        <SudokuGrid />
       </SudokuContext>
+
+      <button onClick={onBtnClick}>
+        {isSolved() ? "Jugar de nuevo" : "Resolver"}
+      </button>
+
+      <div className="rules">
+        <h2>Cómo se juega</h2>
+        <ol>
+          <li>
+            Cada fila debe contener los números del 1 al 9, sin repeticiones.
+          </li>
+          <li>
+            Cada columna debe contener los números del 1 al 9, sin repeticiones.
+          </li>
+          <li>
+            Cada bloque de 3x3 debe contener los números del 1 al 9, sin
+            repeticiones.
+          </li>
+          <li>
+            El juego se da por finalizado cuando el mensaje <i>Sin resolver</i>{" "}
+            pasa a <i>Sudoku resuelto.</i>
+          </li>
+        </ol>
+      </div>
     </div>
   );
 }
