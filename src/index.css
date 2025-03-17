@@ -14,7 +14,6 @@
 body {
   margin: 0;
   padding: 2rem 1rem;
-  min-height: 100vh;
   background-color: var(--color-black);
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
@@ -154,11 +153,16 @@ body, #root, .sudoku {
 
 @media print {
   body {
+    min-height: 100vh;
     background-color: var(--color-white);
   }
 
-  .sudoku p,
-  .sudoku button {
+  #root {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .sudoku > *:not(.grid) {
     display: none;
   }
 }
