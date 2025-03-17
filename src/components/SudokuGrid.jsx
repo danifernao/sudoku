@@ -1,9 +1,8 @@
 import SudokuGridInput from "./SudokuGridInput";
-import { SudokuContext } from "./Sudoku";
-import { useContext, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 
-function SudokuGrid() {
-  const [grid] = useContext(SudokuContext);
+function SudokuGrid({ grid }) {
   const gridRef = useRef();
 
   const getSibling = (key, dataRow, dataCol) => {
@@ -63,18 +62,20 @@ function SudokuGrid() {
   }, []);
 
   return (
-    grid && (
-      <div className="grid" ref={gridRef}>
-        {grid.map((row, i) => {
-          return row.map((_, j) => (
-            <div className="cell" key={j}>
-              <SudokuGridInput row={i} col={j} getSibling={getSibling} />
-            </div>
-          ));
-        })}
-      </div>
-    )
+    <div className="grid" ref={gridRef}>
+      {grid.map((row, i) => {
+        return row.map((_, j) => (
+          <div className="cell" key={j}>
+            <SudokuGridInput row={i} col={j} getSibling={getSibling} />
+          </div>
+        ));
+      })}
+    </div>
   );
 }
+
+SudokuGrid.propTypes = {
+  grid: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+};
 
 export default SudokuGrid;

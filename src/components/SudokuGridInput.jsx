@@ -41,20 +41,18 @@ function SudokuGridInput({ row, col, getSibling }) {
     return true;
   };
 
-  const changeInput = (key = null) => {
-    if (key) {
-      const isNumber = /^[1-9]$/.test(key);
-      if (key !== inputRef.current.value) {
-        const array = Array.from(input);
-        const value = isNumber ? Number(key) : "";
-        array[row][col] = value;
-        setInput(array);
-        inputRef.current.classList.toggle("invalid", !isValid(array));
-      }
-      if (isNumber) {
-        const sibling = getSibling(null, row + 1, col + 1);
-        sibling.focus();
-      }
+  const changeInput = (key) => {
+    const isNumber = /^[1-9]$/.test(key);
+    if (key !== inputRef.current.value) {
+      const array = Array.from(input);
+      const value = isNumber ? Number(key) : "";
+      array[row][col] = value;
+      setInput(array);
+      inputRef.current.classList.toggle("invalid", !isValid(array));
+    }
+    if (isNumber) {
+      const sibling = getSibling(null, row + 1, col + 1);
+      sibling.focus();
     }
   };
 

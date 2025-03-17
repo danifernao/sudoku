@@ -199,7 +199,7 @@ function Sudoku() {
       </div>
 
       <SudokuContext value={[sudoku, input, setInput, clues, status]}>
-        {sudoku && input && clues && <SudokuGrid />}
+        {sudoku && input && clues && <SudokuGrid grid={sudoku} />}
       </SudokuContext>
 
       <div className="buttons">
