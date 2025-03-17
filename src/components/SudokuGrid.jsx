@@ -40,7 +40,6 @@ function SudokuGrid({ grid }) {
 
   const handleKeyDown = (event) => {
     if (
-      gridRef.current &&
       ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)
     ) {
       const elem = document.activeElement;
