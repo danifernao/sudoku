@@ -1,6 +1,6 @@
 # Sudoku
 
-Un sudoku elaborado con React. Este aplicación no genera nuevos sudokus, sino que toma una muestra existente, ya resuelta, y la manipula, presentando el mismo ejercicio, pero en otro orden, ofreciendo una experiencia similar.
+Aplicación para jugar al sudoku, elaborada con React, que ofrece dos niveles de dificultad: fácil y difícil, ideal para disfrutar de un reto rápido. Esta aplicación no genera nuevos sudokus, sino que toma una muestra existente, ya resuelta, y la manipula, presentando el mismo ejercicio, pero en otro orden, ofreciendo una experiencia similar.
 
 ![Captura de pantalla del sudoku](/screenshot.png)
 

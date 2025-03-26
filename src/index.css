@@ -38,7 +38,7 @@ body, #root, .sudoku {
 .sudoku h1 {
   margin: 0 0 2rem 0;
   padding-bottom: 0.5rem;
-  border-bottom: 0.15rem solid rgb(from var(--color-gray) r g b / 0.5);;
+  border-bottom: 0.15rem solid rgb(from var(--color-gray) r g b / 0.5);
   text-align: center;
   font-size: 2.5rem;
 }
