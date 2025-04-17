@@ -87,8 +87,15 @@ body, #root, .sudoku {
   font-size: 1.1rem;
   text-align: center;
   color: var(--color-black);
+  -moz-appearance: textfield;
   appearance: textfield;
   caret-color: transparent;
+}
+
+.sudoku .cell input::-webkit-outer-spin-button,
+.sudoku .cell input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .sudoku .cell input:focus {
