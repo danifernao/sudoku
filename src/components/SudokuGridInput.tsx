@@ -1,14 +1,23 @@
 import { SudokuContext } from "./Sudoku";
 import { useContext, useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
 
-function SudokuGridInput({ row, col, getSibling }) {
-  const [_, input, setInput, clues, status] = useContext(SudokuContext);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
-  const inputRef = useRef();
+interface SudokuGridInputProps {
+  row: number;
+  col: number;
+  getSibling: (
+    key: string | null,
+    dataRow: number,
+    dataCol: number
+  ) => HTMLInputElement;
+}
 
-  const isValid = (array) => {
+function SudokuGridInput({ row, col, getSibling }: SudokuGridInputProps) {
+  const [_, input, setInput, clues, status] = useContext(SudokuContext)!;
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const isValid = (array: (string | number)[][]): boolean => {
     if (array[row][col] === "") {
       return true;
     }
@@ -41,14 +50,14 @@ function SudokuGridInput({ row, col, getSibling }) {
     return true;
   };
 
-  const changeInput = (key) => {
+  const changeInput = (key: string): void => {
     const isNumber = /^[1-9]$/.test(key);
-    if (key !== inputRef.current.value) {
-      const array = Array.from(input);
+    if (key !== inputRef.current!.value) {
+      const array = Array.from(input!);
       const value = isNumber ? Number(key) : "";
       array[row][col] = value;
       setInput(array);
-      inputRef.current.classList.toggle("invalid", !isValid(array));
+      inputRef.current!.classList.toggle("invalid", !isValid(array));
     }
     if (isNumber) {
       const sibling = getSibling(null, row + 1, col + 1);
@@ -56,7 +65,7 @@ function SudokuGridInput({ row, col, getSibling }) {
     }
   };
 
-  const onKeyDown = (event) => {
+  const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     const isNumber = /^[1-9]$/.test(event.key);
     if (["Backspace", "Delete"].includes(event.key) || isNumber) {
       changeInput(event.key);
@@ -65,14 +74,14 @@ function SudokuGridInput({ row, col, getSibling }) {
   };
 
   useEffect(() => {
-    setIsDisabled(["solved", "withdrew"].includes(status));
+    setIsDisabled(["solved", "withdrew"].includes(status!));
     if (status && status.match(/^(solved|withdrew|restarted)/)) {
-      inputRef.current.classList.remove("invalid");
+      inputRef.current!.classList.remove("invalid");
     }
   }, [status]);
 
   useEffect(() => {
-    setIsVisible(clues[row].includes(col));
+    setIsVisible(clues![row].includes(col));
   }, [clues]);
 
   return (
@@ -82,18 +91,12 @@ function SudokuGridInput({ row, col, getSibling }) {
       data-row={row + 1}
       data-col={col + 1}
       disabled={isVisible || isDisabled}
-      value={input[row][col]}
+      value={input![row][col]}
       onChange={() => null}
       onKeyDown={onKeyDown}
       ref={inputRef}
     />
   );
 }
-
-SudokuGridInput.propTypes = {
-  row: PropTypes.number,
-  col: PropTypes.number,
-  getSibling: PropTypes.func,
-};
 
 export default SudokuGridInput;

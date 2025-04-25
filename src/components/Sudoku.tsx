@@ -1,29 +1,40 @@
 import SudokuGrid from "./SudokuGrid";
-import samples from "../assets/samples.json";
+import samples from "../samples/samples.json";
 import { createContext, useEffect, useState } from "react";
 
-export const SudokuContext = createContext();
+type SudokuContextType = [
+  number[][] | null,
+  (number | string)[][] | null,
+  React.Dispatch<React.SetStateAction<(string | number)[][] | null>>,
+  (number | null)[][] | null,
+  string | null
+];
+
+export const SudokuContext = createContext<SudokuContextType | null>(null);
 
 function Sudoku() {
+  // Muestras de sudokus resueltos, categorizadas por "easy" o "hard".
+  const typedSamples: Record<string, number[][][]> = samples;
+
   // Contendrá la matriz del sudoku resuelto.
-  const [sudoku, setSudoku] = useState(null);
+  const [sudoku, setSudoku] = useState<number[][] | null>(null);
 
   // Especifica el nivel del sudoku.
-  const [level, setLevel] = useState("easy");
+  const [level, setLevel] = useState<string>("easy");
 
   // Corresponde a las opciones que se mostrarán en el elemento SELECT.
-  const levels = {
+  const levels: Record<string, string> = {
     easy: "Fácil",
     hard: "Difícil",
   };
 
   // Contendrá la matriz de las respuestas ingresadas por el jugador.
-  const [input, setInput] = useState(null);
+  const [input, setInput] = useState<(string | number)[][] | null>(null);
 
   /* Contendrá el arreglo con las índices del sudoku cuyo valor deben estar
      visibiles para el jugador.
   */
-  const [clues, setClues] = useState(null);
+  const [clues, setClues] = useState<(number | null)[][] | null>(null);
 
   /* Estado del juego, este puede ser:
      "withdrew", cuando se desiste de la partida.
@@ -31,15 +42,15 @@ function Sudoku() {
      "restarted", cuando se borra todo lo ingresado.
      nulo, estado por defecto.
   */
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState<string | null>(null);
 
   // Determina si el sudoku está resuelto o no.
-  const isSolved = () => {
-    return ["solved", "withdrew"].includes(status);
+  const isSolved = (): boolean => {
+    return ["solved", "withdrew"].includes(status!);
   };
 
   // Obtiene un número aleatorio entre un rango determinado.
-  const getRandomInt = (from, to, exclude) => {
+  const getRandomInt = (from: number, to: number, exclude: number[] = []) => {
     let num;
     do {
       num = Math.floor(Math.random() * (to - from + 1)) + from;
@@ -48,13 +59,13 @@ function Sudoku() {
   };
 
   // Obtiene una matriz aleatoria de las muestras proporcionadas.
-  const getMatrix = () => {
-    const rndIndex = getRandomInt(0, samples[level].length - 1);
-    return Array.from(samples[level][rndIndex]);
+  const getMatrix = (): number[][] => {
+    const rndIndex = getRandomInt(0, typedSamples[level].length - 1);
+    return Array.from(typedSamples[level][rndIndex]);
   };
 
   // Rota una matriz hacia la derecha por una sola vez.
-  const rotateMatrix = (matrix) => {
+  const rotateMatrix = (matrix: number[][]): number[][] => {
     const array = Array.from({ length: matrix.length }, () =>
       Array(matrix.length)
     );
@@ -68,9 +79,9 @@ function Sudoku() {
   };
 
   // Desordena las filas de una matriz.
-  const shuffleRows = (matrix) => {
+  const shuffleRows = (matrix: number[][]): number[][] => {
     const array = Array(0);
-    const shuffle = (arr) => {
+    const shuffle = (arr: number[][]): number[][] => {
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -84,7 +95,7 @@ function Sudoku() {
   };
 
   // Desordena el contenido de una matriz.
-  const shuffleMatrix = (matrix) => {
+  const shuffleMatrix = (matrix: number[][]): number[][] => {
     let array = Array.from(matrix);
     const max = getRandomInt(1, 4);
     for (let i = 0; i < max; i++) {
@@ -97,7 +108,7 @@ function Sudoku() {
   /* Obtiene y guarda un sudoku, tomando una matriz de las muestras
      proporcionadas y desordena su cotenido. 
   */
-  const createSudoku = () => {
+  const createSudoku = (): void => {
     const sudoku = shuffleMatrix(getMatrix());
     setSudoku(sudoku);
   };
@@ -107,8 +118,8 @@ function Sudoku() {
     lo cual es irrelevante para mostrar el sudoku resuelto, por lo que
     convierte dichos valores en números enteros.
   */
-  const getSudoku = () => {
-    return sudoku.map((row) =>
+  const getSudoku = (): number[][] => {
+    return sudoku!.map((row) =>
       row.map((num) => (num < 1 ? Number(num.toString().split(".")[1]) : num))
     );
   };
@@ -119,15 +130,15 @@ function Sudoku() {
      verlos, y borra (campo vacío) los que son mayores o iguales a uno, puesto
      que no están destinados a estar visibles para el jugador.
   */
-  const resetInput = () => {
-    const matrix = sudoku.map((row) =>
+  const resetInput = (): void => {
+    const matrix = sudoku!.map((row) =>
       row.map((num) => (num < 1 ? Number(num.toString().split(".")[1]) : ""))
     );
     setInput(matrix);
   };
 
-  const onStartBtnClick = () => {
-    if (["solved", "withdrew"].includes(status)) {
+  const onStartBtnClick = (): void => {
+    if (["solved", "withdrew"].includes(status!)) {
       createSudoku();
       setStatus(null);
     } else {
@@ -136,12 +147,12 @@ function Sudoku() {
     }
   };
 
-  const onRestartBtnClick = () => {
+  const onRestartBtnClick = (): void => {
     resetInput();
     setStatus(`restarted-${Date.now()}`);
   };
 
-  const onLevelChange = (event) => {
+  const onLevelChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     setLevel(event.target.value);
   };
 
@@ -176,7 +187,7 @@ function Sudoku() {
   }, [level]);
 
   useEffect(() => {
-    if (sudoku && getSudoku().toString() === input.toString()) {
+    if (sudoku && getSudoku().toString() === input!.toString()) {
       setStatus("solved");
     }
   }, [input]);

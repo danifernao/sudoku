@@ -1,11 +1,14 @@
 import SudokuGridInput from "./SudokuGridInput";
 import { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
 
-function SudokuGrid({ grid }) {
-  const gridRef = useRef();
+function SudokuGrid({ grid }: { grid: number[][] }) {
+  const gridRef = useRef<HTMLDivElement>(null);
 
-  const getSibling = (key, dataRow, dataCol) => {
+  const getSibling = (
+    key: string | null,
+    dataRow: number,
+    dataCol: number
+  ): HTMLInputElement => {
     let row = Number(dataRow);
     let col = Number(dataCol);
     let elem = null;
@@ -30,26 +33,26 @@ function SudokuGrid({ grid }) {
           break;
       }
 
-      elem = gridRef.current.querySelector(
+      elem = gridRef.current!.querySelector(
         `[data-row~="${row}"][data-col~="${col}"]`
-      );
+      ) as HTMLInputElement;
     } while (elem.disabled);
 
     return elem;
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     if (
       ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)
     ) {
-      const elem = document.activeElement;
+      const elem = document.activeElement as HTMLElement;
       if (
         elem.nodeName === "INPUT" &&
         elem.classList.contains("number-input")
       ) {
         let row = Number(elem.dataset.row);
         let col = Number(elem.dataset.col);
-        const sibling = getSibling(event.key, row, col);
+        const sibling = getSibling(event.key, row, col) as HTMLElement;
         sibling.focus();
       }
     }
@@ -72,9 +75,5 @@ function SudokuGrid({ grid }) {
     </div>
   );
 }
-
-SudokuGrid.propTypes = {
-  grid: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-};
 
 export default SudokuGrid;
