@@ -29,5 +29,5 @@ jobs:
       - run: |
           cd wx3
           git add .
-          git commit -m "Actualiza carpeta 'sudoku' desde repositorio 'sudoku'" || echo "No hay cambios para registrar"
+          git commit -m "Actualiza carpeta 'sudoku' desde repositorio 'sudoku'"
           git push
