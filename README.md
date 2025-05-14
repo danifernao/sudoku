@@ -4,7 +4,7 @@ Aplicación para jugar al sudoku, elaborada con React, que ofrece dos niveles de
 
 ![Captura de pantalla del sudoku](/screenshot.png)
 
-### Instalación
+## Instalación
 
 1. Asegúrate de tener instalado Node.js y NPM.
 2. Descarga o clona este repositorio e ingresa a él.
@@ -14,7 +14,7 @@ Aplicación para jugar al sudoku, elaborada con React, que ofrece dos niveles de
 npm install
 ```
 
-### Visualización
+## Visualización
 
 Ubícate en la raíz del proyecto, abre el terminal en dicha ubicación y ejecuta lo siguiente para iniciar el entorno de desarrollo y visualizarlo en el explorador web:
 
@@ -22,7 +22,7 @@ Ubícate en la raíz del proyecto, abre el terminal en dicha ubicación y ejecut
 npm run dev
 ```
 
-### Configuración
+## Configuración
 
 Los sudokus resueltos se agregan en el archivo `src/assets/samples.json`. A las pistas se les agrega un cero a la izquierda y al resto de números, los cuales permancerán ocultos, un cero a la derecha para mejorar su legibilidad. Por ejemplo:
 
@@ -48,7 +48,7 @@ Representa el siguiente Sudoku:
 
 Ten presente que los sudokus deben ser únicos, no deben tener más de una solución.
 
-### Uso
+## Uso
 
 - El sudoku se llena haciendo clic en alguna casilla de la cudrícula e ingresando un número con el teclado.
 - Cuando ingresas un número, el foco pasa a la siguiente casilla. Para regresar a la casilla anterior o ubicarte en otra distinta, puedes hacer clic en ella o utilizar las teclas de dirección de tu teclado.
@@ -57,7 +57,7 @@ Ten presente que los sudokus deben ser únicos, no deben tener más de una soluc
 - El botón _Reiniciar_ borra lo ingresado por el jugador.
 - El botón _Resolver_ borra lo ingresado y soluciona el sudoku.
 
-### Producción
+## Producción
 
 Ubícate en la raíz del proyecto, abre el terminal en dicha ubicación y ejecuta lo siguiente para generar los archivos destinados a un entorno de producción:
 
