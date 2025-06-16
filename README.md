@@ -6,9 +6,9 @@ Aplicación para jugar al sudoku, elaborada con React, que ofrece dos niveles de
 
 ## Instalación
 
-1. Asegúrate de tener instalado Node.js y NPM.
-2. Descarga o clona este repositorio e ingresa a él.
-3. Abre el terminal en dicha ubicación y ejecuta lo siguiente para instalar las dependencias:
+1. Asegúrate de tener instalados [Node.js](https://nodejs.org/es/download) y npm.
+2. Descarga o clona este repositorio y accede a la carpeta del proyecto.
+3. Abre la terminal en dicha ubicación y ejecuta lo siguiente para instalar las dependencias:
 
 ```
 npm install
@@ -16,7 +16,7 @@ npm install
 
 ## Visualización
 
-Ubícate en la raíz del proyecto, abre el terminal en dicha ubicación y ejecuta lo siguiente para iniciar el entorno de desarrollo y visualizarlo en el explorador web:
+Ubícate en la raíz del proyecto, abre la terminal en dicha ubicación y ejecuta lo siguiente para iniciar el entorno de desarrollo y visualizarlo en el explorador web:
 
 ```
 npm run dev
@@ -59,7 +59,7 @@ Ten presente que los sudokus deben ser únicos, no deben tener más de una soluc
 
 ## Producción
 
-Ubícate en la raíz del proyecto, abre el terminal en dicha ubicación y ejecuta lo siguiente para generar los archivos destinados a un entorno de producción:
+Ubícate en la raíz del proyecto, abre la terminal en dicha ubicación y ejecuta lo siguiente para generar los archivos destinados a un entorno de producción:
 
 ```
 npm run build
